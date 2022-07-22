@@ -3,7 +3,7 @@ set background=dark
 colorscheme solarized
 
 set encoding=utf-8
-set fileencodings=iso-2022-jp,ucs-bom,sjis,utf-8,euc-jp,cp932,default,latin1
+set fileencodings=utf-8,iso-2022-jp,ucs-bom,sjis,euc-jp,cp932,default,latin1
 set fileformats=unix,dos,mac
 
 set number	"行番号
