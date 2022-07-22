@@ -1,3 +1,4 @@
+""" 参考ページ https://knowledge.sakura.ad.jp/23248/ """
 " dein.vim settings {{{
 " install dir {{{
 let s:dein_dir = expand('~/.cache/dein')
@@ -76,7 +77,10 @@ set clipboard+=unnamed
 set laststatus=2 "常にステータス行を表示
 set showcmd "コマンドをステータス行に表示
 set noshowmode "モード非表示
-set undodir=~/.vim/undo "アンドゥファイルの保存先
+if has('persistent_undo')
+  set undodir=~/.vim/undo "アンドゥファイルの保存先
+  set undofile
+endif
 " set ruler "カーソルが何行何列にあるかを表示する
 
 
