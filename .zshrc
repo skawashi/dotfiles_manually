@@ -108,7 +108,7 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git autojump web-search macos)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -157,17 +157,42 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-bindkey "ç" fzf-cd-widget
+bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
 
 export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+### 設定変更オプション ###
+setopt no_beep
+setopt auto_pushd
+setopt pushd_ignore_dups
+#setopt auto_cd
+setopt hist_ignore_dups
+setopt share_history
+setopt inc_append_history
+
+### History 設定 ###
+export HSITFILE=~/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=100000
 
 ### Alias ###
+# .zshrc 読み込み
 alias z='source ~/.zshrc'
+
+# 設定ファイル編集
 alias vz='vim ~/.zshrc'
+alias vv='vim ~/.vimrc'
+alias vt="vim ~/.tmux.conf"
+alias vomz="vim ~/.oh-my-zsh"
+
+# tmux
+alias t='tmux a -d'
+alias tt='tmux'
+
+# コマンド
 alias ls='exa'
 alias l='ls'
 alias la='ls -a'
@@ -177,12 +202,10 @@ alias mv='\mv -i'
 alias cp='\cp -i'
 alias cat='bat'
 alias c='bat'
-alias t='tmux a -d'
-alias tt='tmux'
 alias cl='clear'
-alias vv='vim ~/.vimrc'
 #alias vi='nvim'
 alias vim='nvim'
 alias view='nvim -R'
 
-export PATH=~/.composer/vendor/bin:$PATH
+# PATH
+#export PATH=~/.composer/vendor/bin:$PATH
