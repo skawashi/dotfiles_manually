@@ -1,4 +1,8 @@
+""""""""""""""""""""
+"  Plugin Manager  "
+""""""""""""""""""""
 """ 参考ページ https://knowledge.sakura.ad.jp/23248/ """
+
 " dein.vim settings {{{
 " install dir {{{
 let s:dein_dir = expand('~/.cache/dein')
@@ -48,6 +52,14 @@ if len(s:removed_plugins) > 0
 endif
 " }}}
 
+
+""""""""""""""""""""
+"   エディタ設定   "
+""""""""""""""""""""
+
+""" shell設定 """
+set shell=/bin/zsh
+
 """ テーマ設定 """
 syntax enable
 set background=dark
@@ -59,6 +71,15 @@ set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,ucs-bom,sjis,euc-jp,cp932,default,latin1
 set fileformats=unix,dos,mac
 
+""" ビジュアル設定 """
+set number	"行番号の表示
+set cursorline	"カーソルがある行番号を強調
+set laststatus=2 "常にステータス行を表示
+set showcmd "コマンドをステータス行に表示
+" set ruler "カーソルが何行何列にあるかを表示する
+set noshowmode "モード非表示
+set showmatch "括弧入力時に対応する括弧を表示
+
 """ 検索設定 """
 set ignorecase "検索時に大文字小文字を区別しない
 set incsearch	"インクリメント検索(最初の文字が入力された時点で検索開始)
@@ -67,26 +88,17 @@ set wrapscan "最後まで検索したら最初の行へ
 set hlsearch "検索にマッチするテキストをハイライト
 
 """ 基本設定 """
-set number	"行番号の表示
+set shiftwidth=4 "
+set tabstop=4 "タブの半角スペース数
+set expandtab "タブを入力するとスペースを入力
+set autoindent "改行した時、インデントを同じレベルにする
 " set noswapfile	"スワップファイルを作成しない
-set cursorline	"カーソルがある行番号を強調
 set whichwrap=b,s,h,l,<,>,[,],~	"行を跨いで移動できるようにする
 set backspace=indent,eol,start "バックスペースでインデントや改行を削除可
-set mouse=a
+set mouse=a "マウスの有効化 a:常に n:ノーマル i:インサート v:ビジュアル c:コマンド
 set ttymouse=xterm2
-set clipboard+=unnamed
-set laststatus=2 "常にステータス行を表示
-set showcmd "コマンドをステータス行に表示
-set noshowmode "モード非表示
+set clipboard=unnamed "vimでコピーしたものをクリップボードに保存
 if has('persistent_undo')
   set undodir=~/.vim/undo "アンドゥファイルの保存先
   set undofile
 endif
-" set ruler "カーソルが何行何列にあるかを表示する
-
-
-""" 編集設定 """
-set tabstop=4 "タブの半角スペース数
-set expandtab "タブを入力するとスペースを入力
-set showmatch "括弧入力時に対応する括弧を表示
-set autoindent "改行した時、インデントを同じレベルにする
