@@ -139,7 +139,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-
+# FZF setting
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias f='fzf-tmux --preview "head -n 100 {}"'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -181,3 +181,8 @@ alias t='tmux a -d'
 alias tt='tmux'
 alias cl='clear'
 alias vv='vim ~/.vimrc'
+#alias vi='nvim'
+alias vim='nvim'
+alias view='nvim -R'
+
+export PATH=~/.composer/vendor/bin:$PATH
