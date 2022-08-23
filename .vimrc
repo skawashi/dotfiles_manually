@@ -52,6 +52,7 @@ endif
 syntax enable
 set background=dark
 colorscheme solarized
+" hi Comment ctermfg=14 "コメントアウトの文字色設定
 
 """ エンコード設定 """
 set encoding=utf-8
@@ -63,6 +64,7 @@ set ignorecase "検索時に大文字小文字を区別しない
 set incsearch	"インクリメント検索(最初の文字が入力された時点で検索開始)
 set smartcase "検索時に大文字と小文字が含まれている場合、それぞれ区別する
 set wrapscan "最後まで検索したら最初の行へ
+alias vim='nvim'
 set hlsearch "検索にマッチするテキストをハイライト
 
 """ 基本設定 """
