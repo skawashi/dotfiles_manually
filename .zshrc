@@ -157,9 +157,7 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
 
-export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -177,6 +175,13 @@ setopt inc_append_history
 export HSITFILE=~/.zsh_history
 export HISTSIZE=100000
 export SAVEHIST=100000
+
+#区切り文字設定
+export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
+
+### キーバインド ###
+bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
+bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削除
 
 ### Alias ###
 # .zshrc 読み込み
@@ -208,4 +213,4 @@ alias vim='nvim'
 alias view='nvim -R'
 
 # PATH
-#export PATH=~/.composer/vendor/bin:$PATH
+export PATH=~/.composer/vendor/bin:$PATH
