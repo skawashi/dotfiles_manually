@@ -28,15 +28,18 @@ if dein#load_state(s:dein_dir)
     call mkdir(s:rc_dir, 'p')
   endif
   let s:toml = s:rc_dir . '/dein.toml'
+  " let s:toml_lazy = s:toml_dir . '/dein_lazy.toml' "遅延ロード用ファイル
 
   " read toml and cache
   call dein#load_toml(s:toml, {'lazy': 0})
-
+  " call dein#load_toml(s:toml_toml, {'lazy': 1}) "遅延ロード用
   " end settings
   call dein#end()
   call dein#save_state()
 endif
 " }}}
+
+" 偶に :call dein#update() でアップデートをする
 
 " plugin installation check {{{
 if dein#check_install()
@@ -88,6 +91,7 @@ set wrapscan "最後まで検索したら最初の行へ
 set hlsearch "検索にマッチするテキストをハイライト
 
 """ 基本設定 """
+set helplang=ja "ヘルプの日本語化用
 set shiftwidth=4 "
 set tabstop=4 "タブの半角スペース数
 set expandtab "タブを入力するとスペースを入力
@@ -97,7 +101,7 @@ set whichwrap=b,s,h,l,<,>,[,],~	"行を跨いで移動できるようにする
 set backspace=indent,eol,start "バックスペースでインデントや改行を削除可
 set mouse=a "マウスの有効化 a:常に n:ノーマル i:インサート v:ビジュアル c:コマンド
 set ttymouse=xterm2
-set clipboard=unnamed "vimでコピーしたものをクリップボードに保存
+set clipboard+=unnamed "vimでコピーしたものをクリップボードに保存
 if has('persistent_undo')
   set undodir=~/.vim/undo "アンドゥファイルの保存先
   set undofile
