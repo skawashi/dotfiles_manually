@@ -158,15 +158,15 @@ fbr() {
 }
 
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 ### 設定変更オプション ###
 setopt no_beep
 setopt auto_pushd
 setopt pushd_ignore_dups
-#setopt auto_cd
+setopt auto_cd
 setopt hist_ignore_dups
 setopt share_history
 setopt inc_append_history
@@ -197,6 +197,11 @@ alias vomz="vim ~/.oh-my-zsh"
 alias t='tmux a -d'
 alias tt='tmux'
 
+# エディタ
+#alias vi='nvim'
+#alias vim='nvim'
+#alias view='nvim -R'
+
 # コマンド
 alias ls='exa'
 alias l='ls'
@@ -208,9 +213,9 @@ alias cp='\cp -i'
 alias cat='bat'
 alias c='bat'
 alias cl='clear'
-#alias vi='nvim'
-alias vim='nvim'
-alias view='nvim -R'
 
 # PATH
 export PATH=~/.composer/vendor/bin:$PATH
+
+#コマンドメモ
+# neofetch
