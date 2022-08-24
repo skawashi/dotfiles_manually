@@ -103,6 +103,6 @@ set mouse=a "マウスの有効化 a:常に n:ノーマル i:インサート v:�
 set ttymouse=xterm2
 set clipboard+=unnamed "vimでコピーしたものをクリップボードに保存
 if has('persistent_undo')
-  set undodir=~/.vim/undo "アンドゥファイルの保存先
+  set undodir=~/.vim/undo "Undoファイルの保存先
   set undofile
 endif
