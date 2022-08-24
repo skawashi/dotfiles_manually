@@ -18,33 +18,12 @@ export ZSH="$HOME/.oh-my-zsh"
 #ZSH_THEME="amuse"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+##############################
+# zsh plugin manuall install #
+##############################
 
-#oh my zsh plugin
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#参考ページ(https://wonderwall.hatenablog.com/entry/2016/06/25/205033)
-# main(ハイライト,アンダーライン等)設定
-# 存在するパスのハイライト
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[globbing]='none'
-ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=cyan'
-
-
-
-# bracket
-# マッチしない括弧
-ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
-# 括弧の階層
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
-# カーソルがある場所の括弧にマッチする括弧
-ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
-
-
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
 
 
@@ -108,7 +87,14 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump web-search macos)
+plugins=(
+    git 
+    autojump 
+    web-search 
+    macos
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,13 +124,54 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+###################################
+# zsh-syntax-highlighting setting #
+###################################
+# 参考ページ(https://wonderwall.hatenablog.com/entry/2016/06/25/205033)
+# 参考ページその2(https://qiita.com/shun198/items/c60ec1cce9c9bf1e8c26)
+# Git Hub(https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md)
 
-# FZF setting
+## Initial Setting
+# 下記を追記
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern regexp cursor root line)
+
+# 連想配列
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+## main(highlight,underline)
+# 存在するパスのハイライト
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[globbing]='none'
+ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=cyan'
+
+## bracket
+# マッチしない括弧
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
+
+# 括弧の階層
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
+
+## cursor
+# カーソルがある場所の括弧にマッチする括弧
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
+#ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+
+## root
+#ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
+
+###############
+# FZF setting #
+###############
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias f='fzf-tmux --preview "head -n 100 {}"'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_T_OPTS="--preview 'tree -C {} | head -200'"
+
 fda() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
@@ -161,8 +188,9 @@ fbr() {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-### 設定変更オプション ###
+##################
+# Option setting #
+##################
 setopt no_beep
 setopt auto_pushd
 setopt pushd_ignore_dups
@@ -171,7 +199,9 @@ setopt hist_ignore_dups
 setopt share_history
 setopt inc_append_history
 
-### History 設定 ###
+###################
+# History setting #
+###################
 export HSITFILE=~/.zsh_history
 export HISTSIZE=100000
 export SAVEHIST=100000
@@ -179,30 +209,34 @@ export SAVEHIST=100000
 #区切り文字設定
 export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
 
-### キーバインド ###
+###################
+# bindkey setting #
+###################
 bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
 bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削除
 
-### Alias ###
-# .zshrc 読み込み
+#################
+# Alias setting #
+#################
+## .zshrc 読み込み
 alias z='source ~/.zshrc'
 
-# 設定ファイル編集
+## confing file edit
 alias vz='vim ~/.zshrc'
 alias vv='vim ~/.vimrc'
 alias vt="vim ~/.tmux.conf"
 alias vomz="vim ~/.oh-my-zsh"
 
-# tmux
+## tmux
 alias t='tmux a -d'
 alias tt='tmux'
 
-# エディタ
+## EDITOR
 #alias vi='nvim'
 #alias vim='nvim'
 #alias view='nvim -R'
 
-# コマンド
+## normal command
 alias ls='exa'
 alias l='ls'
 alias la='ls -a'
@@ -214,8 +248,12 @@ alias cat='bat'
 alias c='bat'
 alias cl='clear'
 
-# PATH
+## Git command
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+## PATH
 export PATH=~/.composer/vendor/bin:$PATH
 
-#コマンドメモ
+## available command
 # neofetch
