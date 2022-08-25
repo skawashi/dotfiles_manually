@@ -1,6 +1,6 @@
-""""""""""""""""""""
-"  Plugin Manager  "
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""
+" Plugin Manager  
+""""""""""""""""""""""""""""""""""""""""
 """ 参考ページ https://knowledge.sakura.ad.jp/23248/ """
 
 " dein.vim settings {{{
@@ -56,25 +56,25 @@ endif
 " }}}
 
 
-""""""""""""""""""""
-"   エディタ設定   "
-""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""
+" エディタ設定   
+""""""""""""""""""""""""""""""""""""""""
 
-""" shell設定 """
+""" shell設定
 set shell=/bin/zsh
 
-""" テーマ設定 """
+""" テーマ設定
 syntax enable
 set background=dark
 colorscheme solarized
 " hi Comment ctermfg=14 "コメントアウトの文字色設定
 
-""" エンコード設定 """
+""" エンコード設定
 set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,ucs-bom,sjis,euc-jp,cp932,default,latin1
 set fileformats=unix,dos,mac
 
-""" ビジュアル設定 """
+""" ビジュアル設定
 set number	"行番号の表示
 set cursorline	"カーソルがある行番号を強調
 set laststatus=2 "常にステータス行を表示
@@ -83,15 +83,16 @@ set showcmd "コマンドをステータス行に表示
 set noshowmode "モード非表示
 set showmatch "括弧入力時に対応する括弧を表示
 
-""" 検索設定 """
+""" 検索設定
 set ignorecase "検索時に大文字小文字を区別しない
 set incsearch	"インクリメント検索(最初の文字が入力された時点で検索開始)
 set smartcase "検索時に大文字と小文字が含まれている場合、それぞれ区別する
 set wrapscan "最後まで検索したら最初の行へ
 set hlsearch "検索にマッチするテキストをハイライト
 
-""" 基本設定 """
+""" 基本設定
 set helplang=ja "ヘルプの日本語化用
+set ttimeoutlen=10 "escapeでノーマルモードへ移行するまでの時間
 set shiftwidth=4 "
 set tabstop=4 "タブの半角スペース数
 set expandtab "タブを入力するとスペースを入力
@@ -106,3 +107,29 @@ if has('persistent_undo')
   set undodir=~/.vim/undo "Undoファイルの保存先
   set undofile
 endif
+
+""""""""""""""""""""""""""""""""""""""""
+" coc.nvim setting
+""""""""""""""""""""""""""""""""""""""""
+set completeopt=menuone,noinsert
+"inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+"inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+" set signcolumn=yes
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
