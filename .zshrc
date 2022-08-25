@@ -209,6 +209,9 @@ export SAVEHIST=100000
 #区切り文字設定
 export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
 
+# vimのescapeでノーマルモードへ移行する時間用設定
+KEYTIMEOUT=1
+
 ###################
 # bindkey setting #
 ###################
@@ -225,16 +228,17 @@ alias z='source ~/.zshrc'
 alias vz='vim ~/.zshrc'
 alias vv='vim ~/.vimrc'
 alias vt="vim ~/.tmux.conf"
-alias vomz="vim ~/.oh-my-zsh"
+alias vomz='vim ~/.oh-my-zsh'
+alias vd='vim ~/.vim/dein.toml'
 
 ## tmux
 alias t='tmux a -d'
 alias tt='tmux'
 
 ## EDITOR
-#alias vi='nvim'
-#alias vim='nvim'
-#alias view='nvim -R'
+alias vi='vim'
+alias nv='nvim'
+alias nview='nvim -R'
 
 ## normal command
 alias ls='exa'
@@ -252,8 +256,18 @@ alias cl='clear'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+alias gd='git diff'
+
 ## PATH
 export PATH=~/.composer/vendor/bin:$PATH
+
+## tcomment
+#if !exists('g:tcomment_types')
+#	let g:tcomment_types = {}
+#endif
+#let g:tcomment_types['phpunit'] = '// %s'
+#let g:tcomment_types['twig'] = '{# %s #}'
+#let g:tcomment_types['.vimrc'] = '# %s'
 
 ## available command
 # neofetch
