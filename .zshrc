@@ -146,7 +146,7 @@ ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=cyan'
 
 ## bracket
 # マッチしない括弧
-ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=white'
 
 # 括弧の階層
 ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
