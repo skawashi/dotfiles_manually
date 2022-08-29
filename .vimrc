@@ -109,7 +109,8 @@ if has('persistent_undo')
 endif
 
 """ キーマップ変更
-inoremap <silent> jj <ESC> "Insert Mode 時、素早くjj入力でESC
+" Insert Mode時、素早くjj入力でESC
+inoremap <silent> jj <ESC>
 
 """"""""""""""""""""""""""""""""""""""""
 " coc.nvim setting
