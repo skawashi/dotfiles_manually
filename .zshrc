@@ -133,7 +133,15 @@ source $ZSH/oh-my-zsh.sh
 
 ## Initial Setting
 # 下記を追記
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern regexp cursor root line)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(
+    main
+    brackets
+    pattern
+#    regexp     # ctrl+f で補完すると、その時のカーソルの次の文字が強調されるためoff
+    cursor
+    root
+    line
+)
 
 # 連想配列
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -161,7 +169,7 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 #ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 
 ## root
-#ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
+ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
 
 ###############
 # FZF setting #
@@ -230,6 +238,7 @@ alias vv='vim ~/.vimrc'
 alias vt="vim ~/.tmux.conf"
 alias vomz='vim ~/.oh-my-zsh'
 alias vd='vim ~/.vim/dein.toml'
+alias vn='nvim ~/.config/nvim/init.vim'
 
 ## tmux
 alias t='tmux a -d'
@@ -258,8 +267,17 @@ alias gc='git commit'
 alias gp='git push'
 alias gd='git diff'
 
+###################
+# 環境変数
+###################
+## fzf-tmux setting
+export FZF_TMUX=1
+export FZF_TMUX_OPTS="-p 80%,80%" #[width(%),[heigh(%)]
+export NODE_BREW=$HOME/.nodebrew/current/bin # nodebrew
+
 ## PATH
 export PATH=~/.composer/vendor/bin:$PATH
+export PATH=$NODE_BREW:/usr/local/bin:$PATH #nodebrew
 
 ## tcomment
 #if !exists('g:tcomment_types')
