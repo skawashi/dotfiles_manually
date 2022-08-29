@@ -108,6 +108,9 @@ if has('persistent_undo')
   set undofile
 endif
 
+""" キーマップ変更
+inoremap <silent> jj <ESC> "Insert Mode 時、素早くjj入力でESC
+
 """"""""""""""""""""""""""""""""""""""""
 " coc.nvim setting
 """"""""""""""""""""""""""""""""""""""""
@@ -132,4 +135,4 @@ set shortmess+=c
 " set signcolumn=yes
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
