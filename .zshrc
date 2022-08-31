@@ -137,8 +137,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(
     main
     brackets
     pattern
-#    regexp     # ctrl+f で補完すると、その時のカーソルの次の文字が強調されるためoff
-#    cursor
+    regexp
+#    cursor     # ctrl+f で補完すると、その時のカーソルの次の文字が強調されるためoff
     root
     line
 )
