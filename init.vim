@@ -30,6 +30,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
+" help 日本語化 plugin
+Plug 'vim-jp/vimdoc-ja'
 Plug 'edkolev/promptline.vim'
 " Plug 'nvim-treesitter/nvim-treesitter', { 'merged': 0 }
 Plug 'yoshida-m-3/vim-im-select'
