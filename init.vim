@@ -15,46 +15,61 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'airblade/vim-gitgutter'
 
 " Plug 'sheerun/vim-polyglot'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " status line plugin
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'itchyny/lightline.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " themes colors plugin
 Plug 'altercation/vim-colors-solarized'
 
 " LSP plugin
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-icons'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+" Plug 'thomasfaingnaert/vim-lsp-snippets'
+
+" Emmet plugin
+" Plug 'mattn/emmet-vim'
 
 " help 日本語化 plugin
 Plug 'vim-jp/vimdoc-ja'
 Plug 'edkolev/promptline.vim'
 " Plug 'nvim-treesitter/nvim-treesitter', { 'merged': 0 }
+
+" ノーマルモードへ戻る場合にIMEをオフ
 Plug 'yoshida-m-3/vim-im-select'
 
 call plug#end()
 
-""" NERDTree """ https://github.com/preservim/nerdtree
+""" NERDTree https://github.com/preservim/nerdtree
 " Start NERDTree when Vim is started without file arguments.
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 
-""" vim-gitgutter """ https://github.com/airblade/vim-gitgutter
- let g:gitgutter_highlight_lines = 1
+""" vim-gitgutter https://github.com/airblade/vim-gitgutter
+let g:gitgutter_highlight_lines = 1
 
 """ vim-airline
 " let g:airline#extensions#tabline#enabled = 1 "タブの表示設定
-let g:airline_theme = 'papercolor' "テーマ設定
+" let g:airline_theme = 'papercolor' "テーマ設定
+
+""" vim-lightline
+let g:lightline = { 'colorscheme': 'PaperColor' }
 
 """ vimfiler
 " let g:vimfiler_as_default_explorer = 1
 
 """ vim-im-select
 let g:im_select_default = 'com.apple.keylayout.ABC'
+
+""" vim-lsp
+" let g:lsp_settings_filetype_html = ['html-languageserver', 'angular-language-server']
 
 """"""""""""""""""""""""""""""""""""""""
 " editor setting
@@ -66,8 +81,8 @@ set shell=/bin/zsh
 """ テーマ設定
 syntax enable
 colorscheme solarized
-set background=light
-" set background=dark
+" set background=light
+set background=dark
 " hi Comment ctermfg=black "コメントアウトの文字色設定
 
 
@@ -142,3 +157,18 @@ set shortmess+=c
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" asyncomplete.vim setting
+
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" " inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
+
+" " allow modifying the completeopt variable, or it will
+" " be overridden all the time
+" let g:asyncomplete_auto_completeopt = 0
+
+" set completeopt=menuone,noinsert,noselect,preview
+
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
