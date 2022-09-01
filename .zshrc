@@ -278,6 +278,7 @@ alias cl='clear'
 ## Git command
 alias ga='git add'
 alias gc='git commit'
+alias gcm='git commit -m'
 alias gp='git push'
 alias gd='git diff'
 alias gds='git diff --staged'
