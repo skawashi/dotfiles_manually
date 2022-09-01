@@ -226,6 +226,19 @@ KEYTIMEOUT=1
 bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
 bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削除
 
+###################
+# 環境変数
+###################
+## fzf-tmux setting
+export FZF_TMUX=1
+export FZF_TMUX_OPTS="-p 80%,80%" #[width(%),[heigh(%)]
+export NODE_BREW=$HOME/.nodebrew/current/bin # nodebrew
+export EDITOR='nvim'
+
+## PATH
+export PATH=~/.composer/vendor/bin:$PATH
+export PATH=$NODE_BREW:/usr/local/bin:$PATH #nodebrew
+
 #################
 # Alias setting #
 #################
@@ -238,7 +251,7 @@ alias vv='vim ~/.vimrc'
 alias vt="vim ~/.tmux.conf"
 alias vomz='vim ~/.oh-my-zsh'
 alias vd='vim ~/.vim/dein.toml'
-alias vn='nvim ~/.config/nvim/init.vim'
+alias vn='vim ~/.config/nvim/init.vim'
 
 ## tmux
 alias t='tmux a -d'
@@ -246,6 +259,7 @@ alias tt='tmux'
 
 ## EDITOR
 alias vi='vim'
+alias vim='$EDITOR'
 alias nv='nvim'
 alias nview='nvim -R'
 
@@ -266,18 +280,11 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gd='git diff'
-
-###################
-# 環境変数
-###################
-## fzf-tmux setting
-export FZF_TMUX=1
-export FZF_TMUX_OPTS="-p 80%,80%" #[width(%),[heigh(%)]
-export NODE_BREW=$HOME/.nodebrew/current/bin # nodebrew
-
-## PATH
-export PATH=~/.composer/vendor/bin:$PATH
-export PATH=$NODE_BREW:/usr/local/bin:$PATH #nodebrew
+alias gds='git diff --staged'
+alias gs='git status'
+alias gl='git log'
+# alias br='branch'
+# alias co='checkout'
 
 ## tcomment
 #if !exists('g:tcomment_types')
