@@ -1,4 +1,4 @@
-" :PlugInstall  まだインストールされていないプラグインをインストール
+" :PlugInstall  このファイルに記述があり、まだインストールされていないプラグインをインストール
 " :PlugClean    このファイルから無くなったプラグインを削除
 call plug#begin() "以下にプラグインのurlを記述
 
@@ -6,6 +6,8 @@ call plug#begin() "以下にプラグインのurlを記述
 " Plug 'preservim/nerdtree'
 " Plug 'Shougo/vimfiler.vim'
 Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'yuki-yano/fern-preview.vim'
 
 " fzf plugin
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -45,12 +47,30 @@ Plug 'edkolev/promptline.vim'
 " ノーマルモードへ戻る場合にIMEをオフ
 Plug 'yoshida-m-3/vim-im-select'
 
+" indent line plugin
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 """ NERDTree https://github.com/preservim/nerdtree
 " Start NERDTree when Vim is started without file arguments.
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+""" Fern plugin setting
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
+" 隠しファイルを表示する
+let g:fern#default_hidden=1
 
 """ vim-gitgutter https://github.com/airblade/vim-gitgutter
 let g:gitgutter_highlight_lines = 1
@@ -68,8 +88,9 @@ let g:lightline = { 'colorscheme': 'PaperColor' }
 """ vim-im-select
 let g:im_select_default = 'com.apple.keylayout.ABC'
 
-""" vim-lsp
-" let g:lsp_settings_filetype_html = ['html-languageserver', 'angular-language-server']
+""" indentLine
+let g:indentLine_char = 'c'
+let g:indentLine_char_list = ['▏', '▏', '▏', '▏']
 
 """"""""""""""""""""""""""""""""""""""""
 " editor setting
