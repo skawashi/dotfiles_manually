@@ -88,9 +88,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git 
-    autojump 
-    web-search 
+    git
+    autojump
+    web-search
     macos
     zsh-autosuggestions
     zsh-syntax-highlighting
@@ -286,6 +286,16 @@ alias gs='git status'
 alias gl='git log'
 # alias br='branch'
 # alias co='checkout'
+
+## Docker Command
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcd='docker compose down'
+alias dcs='docker compose stop'
+alias dp='docker ps'
+alias dpa='docker ps -a'
+alias drac='docker rm $(docker ps -aq)'
+alias drai='docker rmi $(docker images -q)'
 
 ## tcomment
 #if !exists('g:tcomment_types')
