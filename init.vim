@@ -49,6 +49,12 @@ Plug 'yoshida-m-3/vim-im-select'
 
 " indent line plugin
 Plug 'Yggdroot/indentLine'
+
+" space highlight plugin
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'tpope/vim-surround'
+
 call plug#end()
 
 """ NERDTree https://github.com/preservim/nerdtree
@@ -74,6 +80,9 @@ let g:fern#default_hidden=1
 
 """ vim-gitgutter https://github.com/airblade/vim-gitgutter
 let g:gitgutter_highlight_lines = 1
+let g:gitgutter_sign_added = '●'
+let g:gitgutter_sign_modified= '●'
+let g:gitgutter_sign_removed= '●'
 
 """ vim-airline
 " let g:airline#extensions#tabline#enabled = 1 "タブの表示設定
@@ -89,8 +98,10 @@ let g:lightline = { 'colorscheme': 'PaperColor' }
 let g:im_select_default = 'com.apple.keylayout.ABC'
 
 """ indentLine
-let g:indentLine_char = 'c'
 let g:indentLine_char_list = ['▏', '▏', '▏', '▏']
+
+""" vim-better-whitespace
+" let g:strip_whitespace_on_save=1
 
 """"""""""""""""""""""""""""""""""""""""
 " editor setting
@@ -126,7 +137,7 @@ set showmatch "括弧入力時に対応する括弧を表示
 
 """ 検索設定
 set ignorecase "検索時に大文字小文字を区別しない
-set incsearch	"インクリメント検索(最初の文字が入力された時点で検索開始)
+set incsearch "インクリメント検索(最初の文字が入力された時点で検索開始)
 set smartcase "検索時に大文字と小文字が含まれている場合、それぞれ区別する
 set wrapscan "最後まで検索したら最初の行へ
 set hlsearch "検索にマッチするテキストをハイライト
@@ -138,11 +149,11 @@ set shiftwidth=4 "
 set tabstop=4 "タブの半角スペース数
 set expandtab "タブを入力するとスペースを入力
 set autoindent "改行した時、インデントを同じレベルにする
+set smartindent "{で改行すると自動でインデントされる
 " set noswapfile	"スワップファイルを作成しない
 set whichwrap=b,s,h,l,<,>,[,],~	"行を跨いで移動できるようにする
 set backspace=indent,eol,start "バックスペースでインデントや改行を削除可
 set mouse=a "マウスの有効化 a:常に n:ノーマル i:インサート v:ビジュアル c:コマンド
-" set ttymouse=xterm2
 set clipboard+=unnamed "vimでコピーしたものをクリップボードに保存
 if has('persistent_undo')
   set undodir=~/.config/nvim/undo "Undoファイルの保存先
@@ -159,7 +170,7 @@ set completeopt=menuone,noinsert
 "inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 "inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 " "Enterで改行yされないようにする(Enterがバグるのでコメントアウト中)
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>" 
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -179,7 +190,7 @@ set shortmess+=c
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" asyncomplete.vim setting
+""" asyncomplete.vim setting
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
