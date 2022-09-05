@@ -297,6 +297,14 @@ alias dpa='docker ps -a'
 alias drac='docker rm $(docker ps -aq)'
 alias drai='docker rmi $(docker images -q)'
 
+## function
+colors() {
+  for i in {0..255};
+  do
+    print -Pn "%K{$i} %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'};
+  done
+}
+
 ## tcomment
 #if !exists('g:tcomment_types')
 #	let g:tcomment_types = {}
