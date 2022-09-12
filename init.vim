@@ -1,86 +1,6 @@
-" :PlugInstall  このファイルに記述があり、まだインストールされていないプラグインをインストール
-" :PlugClean    このファイルから無くなったプラグインを削除
-call plug#begin() "以下にプラグインのurlを記述
-
-" filer plugin
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-hijack.vim'
-Plug 'yuki-yano/fern-preview.vim'
-
-" fzf plugin
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
-" git plugin
-" git差分の表示
-Plug 'airblade/vim-gitgutter'
-
-" Plug 'sheerun/vim-polyglot'
-
-" status line plugin
-Plug 'itchyny/lightline.vim'
-
-" themes colors plugin
-Plug 'altercation/vim-colors-solarized'
-
-" LSP plugin
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-" help 日本語化 plugin
-Plug 'vim-jp/vimdoc-ja'
-Plug 'edkolev/promptline.vim'
-" Plug 'nvim-treesitter/nvim-treesitter', { 'merged': 0 }
-
-" ノーマルモードへ戻る場合にIMEをオフ
-Plug 'yoshida-m-3/vim-im-select'
-
-" indent line plugin
-Plug 'Yggdroot/indentLine'
-
-" space highlight plugin
-Plug 'ntpeters/vim-better-whitespace'
-
-Plug 'tpope/vim-surround'
-
-call plug#end()
-
-""" Fern plugin setting
-function! s:fern_settings() abort
-  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
-  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
-  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
-  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
-endfunction
-
-augroup fern-settings
-  autocmd!
-  autocmd FileType fern call s:fern_settings()
-augroup END
-
-" 隠しファイルを表示する
-let g:fern#default_hidden=1
-
-""" vim-gitgutter https://github.com/airblade/vim-gitgutter
-let g:gitgutter_highlight_lines = 1
-let g:gitgutter_sign_added = '●'
-let g:gitgutter_sign_modified= '●'
-let g:gitgutter_sign_removed= '●'
-
-""" vim-lightline
-let g:lightline = { 'colorscheme': 'PaperColor' }
-
-""" vim-im-select
-let g:im_select_default = 'com.apple.keylayout.ABC'
-
-""" indentLine
-let g:indentLine_char_list = ['▏', '▏', '▏', '▏']
-
-""" vim-better-whitespace
-" let g:strip_whitespace_on_save=1
-
-""""""""""""""""""""""""""""""""""""""""
-" editor setting
-""""""""""""""""""""""""""""""""""""""""
+" ##############################################
+" # editor setting
+" ##############################################
 
 """ shell設定
 set shell=/bin/zsh
@@ -138,9 +58,101 @@ endif
 """ キーマップ変更
 inoremap <silent> jj <ESC>
 
-""""""""""""""""""""""""""""""""""""""""
-" coc.nvim setting
-""""""""""""""""""""""""""""""""""""""""
+" ##############################################
+" # plugin install
+" ##############################################
+" :PlugInstall  このファイルに記述があり、まだインストールされていないプラグインをインストール
+" :PlugClean    このファイルから無くなったプラグインを削除
+call plug#begin() "以下にプラグインのurlを記述
+
+" filer plugin
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'yuki-yano/fern-preview.vim'
+
+" fzf plugin
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" git plugin
+" git差分の表示
+Plug 'airblade/vim-gitgutter'
+
+" Plug 'sheerun/vim-polyglot'
+
+" status line plugin
+Plug 'itchyny/lightline.vim'
+
+" themes colors plugin
+Plug 'altercation/vim-colors-solarized'
+
+" LSP plugin
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" help 日本語化 plugin
+Plug 'vim-jp/vimdoc-ja'
+Plug 'edkolev/promptline.vim'
+" Plug 'nvim-treesitter/nvim-treesitter', { 'merged': 0 }
+
+" ノーマルモードへ戻る場合にIMEをオフ
+Plug 'yoshida-m-3/vim-im-select'
+
+" indent line plugin
+Plug 'Yggdroot/indentLine'
+
+" space highlight plugin
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
+call plug#end()
+
+" matchit.vimを有効化(vimのデフォルトプラグイン)
+packadd! matchit
+
+" ##############################################
+" # plugin setting
+" ##############################################
+
+""" Fern plugin setting
+" ファイルツリー表示時、pを押すと詳細表示
+" Ctr + p で常時詳細表示
+" 詳細表示時、Ctr + u で上、 Ctr + d で下へ
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
+" 隠しファイルを表示する
+let g:fern#default_hidden=1
+
+""" vim-gitgutter https://github.com/airblade/vim-gitgutter
+let g:gitgutter_highlight_lines = 1
+let g:gitgutter_sign_added = '●'
+let g:gitgutter_sign_modified= '●'
+let g:gitgutter_sign_removed= '●'
+
+""" vim-lightline
+let g:lightline = { 'colorscheme': 'PaperColor' }
+
+""" vim-im-select
+let g:im_select_default = 'com.apple.keylayout.ABC'
+
+""" indentLine
+let g:indentLine_char_list = ['▏', '▏', '▏', '▏']
+
+""" vim-better-whitespace
+" let g:strip_whitespace_on_save=1
+
+"""  coc.nvim setting
 set completeopt=menuone,noinsert
 "inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 "inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
