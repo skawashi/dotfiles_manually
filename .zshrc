@@ -177,7 +177,7 @@ ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias f='fzf-tmux --preview "head -n 100 {}"'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_T_OPTS="--preview 'tree -C {} | head -200'"
 
 fda() {
@@ -261,7 +261,7 @@ alias tt='tmux'
 alias vi='vim'
 alias vim='$EDITOR'
 alias nv='nvim'
-alias nview='nvim -R'
+alias view='nvim -R'
 
 ## normal command
 alias ls='exa'
@@ -296,14 +296,6 @@ alias dp='docker ps'
 alias dpa='docker ps -a'
 alias drac='docker rm $(docker ps -aq)'
 alias drai='docker rmi $(docker images -q)'
-
-## function
-colors() {
-  for i in {0..255};
-  do
-    print -Pn "%K{$i} %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'};
-  done
-}
 
 ## tcomment
 #if !exists('g:tcomment_types')
