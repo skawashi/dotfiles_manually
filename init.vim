@@ -12,7 +12,6 @@ colorscheme solarized
 set background=dark
 " hi Comment ctermfg=black "コメントアウトの文字色設定
 
-
 """ エンコード設定
 set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,ucs-bom,sjis,euc-jp,cp932,default,latin1
@@ -21,6 +20,7 @@ set fileformats=unix,dos,mac
 """ ビジュアル設定
 set number	"行番号の表示
 set cursorline	"カーソルがある行番号を強調
+highlight cursorline cterm=underline ctermfg=NONE ctermbg=NONE "カーソルラインをハイライトからアンダーラインに変更
 set signcolumn=yes "サイン列の表示
 highlight clear SignColumn "サイン列の色をクリアに
 set laststatus=2 "常にステータス行を表示
@@ -55,6 +55,14 @@ if has('persistent_undo')
   set undofile
 endif
 
+""" ファイルタイプ
+if has('autocmd')
+  filetype plugin indent on
+  "sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtabの略
+  autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+endif
+
 """ キーマップ変更
 inoremap <silent> jj <ESC>
 
@@ -87,7 +95,7 @@ Plug 'altercation/vim-colors-solarized'
 
 " LSP plugin
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+Plug 'jwalton512/vim-blade'
 
 " help 日本語化 plugin
 Plug 'vim-jp/vimdoc-ja'
@@ -134,6 +142,9 @@ augroup END
 " 隠しファイルを表示する
 let g:fern#default_hidden=1
 
+" Ctr + n でファイルツリーを表示/非表示
+nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+
 """ vim-gitgutter https://github.com/airblade/vim-gitgutter
 let g:gitgutter_highlight_lines = 1
 let g:gitgutter_sign_added = '●'
@@ -175,4 +186,27 @@ set updatetime=300
 set shortmess+=c
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+
+" floating windowの透明度(ウインドウのしたのコードが透けるため、違和感があるかも)
+" set pumblend=5
+

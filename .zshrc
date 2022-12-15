@@ -1,3 +1,10 @@
+## ターミナル起動時、tmuximum実行
+# if [ -z $TMUX ]; then
+#   tmuximum
+# fi
+
+# pokemonsay 'Welcome'
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -125,7 +132,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ###################################
-# zsh-syntax-highlighting setting #
+# zsh-syntax-highlighting setting
 ###################################
 # 参考ページ(https://wonderwall.hatenablog.com/entry/2016/06/25/205033)
 # 参考ページその2(https://qiita.com/shun198/items/c60ec1cce9c9bf1e8c26)
@@ -172,7 +179,7 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
 
 ###############
-# FZF setting #
+# FZF setting
 ###############
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias f='fzf-tmux --preview "head -n 100 {}"'
@@ -192,12 +199,11 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ##################
-# Option setting #
+# Option setting
 ##################
 setopt no_beep
 setopt auto_pushd
@@ -208,7 +214,7 @@ setopt share_history
 setopt inc_append_history
 
 ###################
-# History setting #
+# History setting
 ###################
 export HSITFILE=~/.zsh_history
 export HISTSIZE=100000
@@ -221,7 +227,7 @@ export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
 KEYTIMEOUT=1
 
 ###################
-# bindkey setting #
+# bindkey setting
 ###################
 bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
 bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削除
@@ -232,13 +238,31 @@ bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削�
 ## fzf-tmux setting
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%,80%" #[width(%),[heigh(%)]
+## nodebrew
 export NODE_BREW=$HOME/.nodebrew/current/bin # nodebrew
+
 export EDITOR='nvim'
 
-## PATH
+###################
+# PATH
+###################
+## nodebrew
 export PATH=~/.composer/vendor/bin:$PATH
 export PATH=$NODE_BREW:/usr/local/bin:$PATH #nodebrew
 
+## Pokemonsay
+export PATH=/Users/skawashi/bin:$PATH
+
+## 外部インストールしたtmuxコマンド
+export PATH=/usr/local/bin/tmuximum:$PATH
+
+## PHP
+# ダウングレード
+export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
+export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
+
+# phpcs
+export PATH=~/bin/PHP_CodeSniffer/bin:$PATH
 #################
 # Alias setting #
 #################
@@ -247,15 +271,18 @@ alias z='source ~/.zshrc'
 
 ## confing file edit
 alias vz='vim ~/.zshrc'
-alias vv='vim ~/.vimrc'
+alias vv='vim ~/.config/nvim/init.vim'
 alias vt="vim ~/.tmux.conf"
 alias vomz='vim ~/.oh-my-zsh'
 alias vd='vim ~/.vim/dein.toml'
-alias vn='vim ~/.config/nvim/init.vim'
+alias vvi='vim ~/.vimrc'
 
 ## tmux
 alias t='tmux a -d'
 alias tt='tmux'
+alias ttk='tmux kill-session -t'
+alias tls='tmux ls'
+alias tm='tmuximum'
 
 ## EDITOR
 alias vi='vim'
@@ -297,6 +324,9 @@ alias dpa='docker ps -a'
 alias drac='docker rm $(docker ps -aq)'
 alias drai='docker rmi $(docker images -q)'
 
+## Pokemonsay
+alias poke="pokemonsay 'Welcome'"
+
 ## tcomment
 #if !exists('g:tcomment_types')
 #	let g:tcomment_types = {}
@@ -305,5 +335,69 @@ alias drai='docker rmi $(docker images -q)'
 #let g:tcomment_types['twig'] = '{# %s #}'
 #let g:tcomment_types['.vimrc'] = '# %s'
 
+# phpenv
+# eval "$(anyenv init -)"
+
+# phpenv() {
+#   unfunction "$0"
+#   source <(phpenv init -)
+#   $0 "$@"
+# }
+
+# export PATH="/opt/homebrew/opt/bison/bin:$PATH"
+# export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
+# export PATH="/opt/homebrew/opt/bzip2/bin:$PATH"
+# export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+# export PATH="/opt/homebrew/opt/libiconv/bin:$PATH"
+# export PATH="/opt/homebrew/opt/krb5/bin:$PATH"
+# export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+# export PATH="/opt/homebrew/opt/icu4c/bin:$PATH"
+# export PATH="/opt/homebrew/opt/tidy-html5/lib:$PATH"
+# export PATH="/opt/homebrew/opt/gmp/lib:$PATH"
+
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/libedit/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/libjpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/libpng/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/libzip/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/oniguruma/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/tidy-html5/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/gmp/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# export PHP_RPATHS="/opt/homebrew/opt/zlib/lib /opt/homebrew/opt/bzip2/lib /opt/homebrew/opt/curl/lib /opt/homebrew/opt/libiconv/lib /opt/homebrew/opt/libedit/lib"
+
+# export PHP_BUILD_CONFIGURE_OPTS="
+#     --disable-fpm
+#     --with-bz2=$(brew --prefix bzip2)
+#     --with-curl=$(brew --prefix curl)
+#     --with-gettext=$(brew --prefix gettext)
+#     --with-gmp=$(brew --prefix gmp)
+#     --with-iconv=$(brew --prefix libiconv)
+#     --with-icu_dir=$(brew --prefix icu4c)
+#     --with-jpeg-dir=$(brew --prefix jpeg)
+#     --with-libedit=$(brew --prefix libedit)
+#     --with-libxml-dir=$(brew --prefix libxml2)
+#     --with-libzip=$(brew --prefix libzip)
+#     --with-png-dir=$(brew --prefix libpng)
+#     --with-readline=$(brew --prefix readline)
+#     --with-tidy=$(brew --prefix tidy-html5)
+#     --with-xsl=$(brew --prefix libxslt)
+#     --with-zlib-dir=$(brew --prefix zlib)
+# "
+
+    # --enable-intl
+    # --with-pear
+
+    # --with-external-pcre=$(brew --prefix pcre2)
+    # --with-zip
+    # --with-mcrypt=$(brew --prefix libmcrypt)
+    # --disable-phpdgb
+    # --enable-debaug
+    # --with-kerberos
+
 ## available command
 # neofetch
+
