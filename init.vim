@@ -6,10 +6,14 @@
 set shell=/bin/zsh
 
 """ テーマ設定
+" Workaround a problem with solarized and vim-gitgutter.
+" https://github.com/airblade/vim-gitgutter/issues/696
+highlight! link SignColumn LineNr
+autocmd ColorScheme * highlight! link SignColumn LineNr
 syntax enable
-colorscheme solarized
 " set background=light
 set background=dark
+colorscheme solarized
 " hi Comment ctermfg=black "コメントアウトの文字色設定
 
 """ エンコード設定
@@ -20,9 +24,9 @@ set fileformats=unix,dos,mac
 """ ビジュアル設定
 set number	"行番号の表示
 set cursorline	"カーソルがある行番号を強調
-highlight cursorline cterm=underline ctermfg=NONE ctermbg=NONE "カーソルラインをハイライトからアンダーラインに変更
+hi cursorline cterm=underline "カーソルラインをハイライトからアンダーラインに変更
 set signcolumn=yes "サイン列の表示
-highlight clear SignColumn "サイン列の色をクリアに
+hi clear SignColumn "サイン列の色をクリアに
 set laststatus=2 "常にステータス行を表示
 set cmdheight=2 "ステータスライン下の行数設定"
 set showcmd "コマンドをステータス行に表示
@@ -55,17 +59,6 @@ if has('persistent_undo')
   set undofile
 endif
 
-""" ファイルタイプ
-if has('autocmd')
-  filetype plugin indent on
-  "sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtabの略
-  autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
-endif
-
-""" キーマップ変更
-inoremap <silent> jj <ESC>
-
 " ##############################################
 " # plugin install
 " ##############################################
@@ -73,140 +66,135 @@ inoremap <silent> jj <ESC>
 " :PlugClean    このファイルから無くなったプラグインを削除
 call plug#begin() "以下にプラグインのurlを記述
 
-" filer plugin
+"""" filer plugin
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'yuki-yano/fern-preview.vim'
 
-" fzf plugin
+"""" fzf plugin
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-" git plugin
-" git差分の表示
+"""" git plugin
+"" git差分の表示
 Plug 'airblade/vim-gitgutter'
 
-" Plug 'sheerun/vim-polyglot'
-
-" status line plugin
+"""" status line plugin
 Plug 'itchyny/lightline.vim'
 
-" themes colors plugin
+"""" themes colors plugin
 Plug 'altercation/vim-colors-solarized'
 
-" LSP plugin
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jwalton512/vim-blade'
+"""" LSP plugin
+"" coc.nvim関係
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'jwalton512/vim-blade'
 
-" help 日本語化 plugin
+"" lspカラー
+Plug 'folke/lsp-colors.nvim'
+
+"" nvim-lsp関係
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+"" nvim-lsp自動補完
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-nvim-lua'
+
+"""" ハイライト
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'm-demare/hlargs.nvim'
+
+"""" スクロールバー
+Plug 'petertriho/nvim-scrollbar'
+
+"""" 検索系
+Plug 'kevinhwang91/nvim-hlslens'
+
+"""" fモーション強化
+Plug 'unblevable/quick-scope'
+
+"""" ペアジャンプ
+Plug 'andymass/vim-matchup'
+
+"""" 括弧自動補完
+Plug 'windwp/nvim-autopairs'
+Plug 'windwp/nvim-ts-autotag'
+
+"""" マーク表示
+Plug 'chentoast/marks.nvim'
+
+"""" 行表示変更
+Plug 'myusuf3/numbers.vim'
+
+"""" help 日本語化 plugin
 Plug 'vim-jp/vimdoc-ja'
-Plug 'edkolev/promptline.vim'
-" Plug 'nvim-treesitter/nvim-treesitter', { 'merged': 0 }
 
-" ノーマルモードへ戻る場合にIMEをオフ
+"""" ノーマルモードへ戻る場合にIMEをオフ
 Plug 'yoshida-m-3/vim-im-select'
 
-" indent line plugin
+"""" indent line plugin
 Plug 'Yggdroot/indentLine'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
-" space highlight plugin
+"""" space highlight plugin
 Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
+"""" シンタックスハイライト
+" Plug 'sheerun/vim-polyglot'
+
+"""" xtermカラー表示(:XtermColorTable)
+Plug 'guns/xterm-color-table.vim'
+
+"""" 機能不明
+Plug 'edkolev/promptline.vim'
+
 call plug#end()
 
-" matchit.vimを有効化(vimのデフォルトプラグイン)
-packadd! matchit
+lua << EOF
 
-" ##############################################
-" # plugin setting
-" ##############################################
+-- 5. another
+require("lsp-colors").setup({
+  Error = "#db4b4b",
+  Warning = "#e0af68",
+  Information = "#0db9d7",
+  Hint = "#10B981"
+})
 
-""" Fern plugin setting
-" ファイルツリー表示時、pを押すと詳細表示
-" Ctr + p で常時詳細表示
-" 詳細表示時、Ctr + u で上、 Ctr + d で下へ
-function! s:fern_settings() abort
-  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
-  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
-  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
-  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+-- vim.opt.list = true
+-- vim.opt.listchars:append "space:⋅"
+-- vim.opt.listchars:append "eol:↴"
+-- require("indent_blankline").setup {
+--     space_char_blankline = " ",
+--     show_current_context = true,
+--     show_current_context_start = true,
+-- }
+
+require('marks').setup()
+require('hlslens').setup()
+require("scrollbar").setup()
+require("nvim-autopairs").setup()
+require('nvim-ts-autotag').setup()
+
+EOF
+
+let s:plugs = get(s:, 'plugs', get(g:, 'plugs', {}))
+function! FindPlugin(name) abort
+  return has_key(s:plugs, a:name) ? isdirectory(s:plugs[a:name].dir) : 0
 endfunction
+command! -nargs=1 UsePlugin if !FindPlugin(<args>) | finish | endif
 
-augroup fern-settings
-  autocmd!
-  autocmd FileType fern call s:fern_settings()
-augroup END
-
-" 隠しファイルを表示する
-let g:fern#default_hidden=1
-
-" Ctr + n でファイルツリーを表示/非表示
-nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
-
-""" vim-gitgutter https://github.com/airblade/vim-gitgutter
-let g:gitgutter_highlight_lines = 1
-let g:gitgutter_sign_added = '●'
-let g:gitgutter_sign_modified= '●'
-let g:gitgutter_sign_removed= '●'
-
-""" vim-lightline
-let g:lightline = { 'colorscheme': 'PaperColor' }
-
-""" vim-im-select
-let g:im_select_default = 'com.apple.keylayout.ABC'
-
-""" indentLine
-let g:indentLine_char_list = ['▏', '▏', '▏', '▏']
-
-""" vim-better-whitespace
-" let g:strip_whitespace_on_save=1
-
-"""  coc.nvim setting
-set completeopt=menuone,noinsert
-"inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
-"inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
-" "Enterで改行yされないようにする(Enterがバグるのでコメントアウト中)
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-
-" floating windowの透明度(ウインドウのしたのコードが透けるため、違和感があるかも)
-" set pumblend=5
+runtime! _config/*.vim
 

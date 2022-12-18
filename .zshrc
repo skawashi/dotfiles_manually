@@ -281,7 +281,7 @@ alias vvi='vim ~/.vimrc'
 alias t='tmux a -d'
 alias tt='tmux'
 alias ttk='tmux kill-session -t'
-alias tls='tmux ls'
+alias ttl='tmux ls'
 alias tm='tmuximum'
 
 ## EDITOR
