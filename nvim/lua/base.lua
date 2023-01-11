@@ -34,6 +34,9 @@ vim.opt.whichwrap = 'b,s,h,l,<,>,[,],~'
 vim.opt.backspace = 'start,eol,indent'
 vim.opt.breakindent = true
 
+vim.opt.wildmenu = true
+vim.opt.wildmode = 'longest,list,full'
+
 vim.cmd([[
 if has('persistent_undo')
   set undodir=~/.config/nvim/undo
@@ -45,8 +48,14 @@ endif
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
+-- Italics
 vim.cmd([[let &t_ZH="\e[3m"]])
 vim.cmd([[let &t_ZR="\e[23m"]])
+
+-- Cursor type (Not working)
+vim.cmd([[let &t_SI = "\e[1 q"]]) -- SI = INSERT mode
+vim.cmd([[let &t_SR = "\e[1 q"]]) -- SR = REPLACE mode
+vim.cmd([[let &t_EI = "\e[1 q"]]) -- EI = NORMAL mode (ELSE)
 
 local autocmd = vim.api.nvim_create_autocmd
 -- Turn off paste mode when leaving insert

@@ -8,19 +8,18 @@ vim.cmd([[packadd packer.nvim]])
 packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- Plugin manager
 
-
   -- Editor
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'akinsho/nvim-bufferline.lua' -- Tab custom
+  use 'kwkarlwang/bufresize.nvim' -- Buffer auto resize
+  use 'sidebar-nvim/sidebar.nvim' -- Side bar
   use {
     'svrana/neosolarized.nvim',
     requires = { 'tjdevries/colorbuddy.nvim' }
   }
   use 'goolord/alpha-nvim'
-  use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-  }
+  use { "nvim-neo-tree/neo-tree.nvim", branch = "v2.x", }
+  use "lukas-reineke/indent-blankline.nvim"
 
   -- Library
   use 'zsugabubus/crazy8.nvim' -- Auto define ts, sw, sts, et
@@ -30,6 +29,15 @@ packer.startup(function(use)
   use 'yutkat/wb-only-current-line.nvim'
   use 'folke/which-key.nvim'
   use 'yoshida-m-3/vim-im-select'
+
+  -- Motion
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v2', -- optional but strongly recommended
+    config = function()
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  }
   use {
     'jinh0/eyeliner.nvim',
     config = function()
@@ -38,13 +46,20 @@ packer.startup(function(use)
       }
     end
   }
-  -- use {
-  --   'phaazon/hop.nvim',
-  --   branch = 'v2', -- optional but strongly recommended
-  --   config = function()
-  --     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-  --   end
-  -- }
+  -- use 'ggandor/lightspeed.nvim'
+  use 'haya14busa/vim-edgemotion'
+  -- use 'machakann/vim-columnmove'
+  use 'justinmk/vim-ipmotion' -- {, } の移動を強化
+  -- use 'bkad/CamelCaseMotion'
+  use 'osyo-manga/vim-milfeulle' -- <C-o>を強化
+  use 'kwkarlwang/bufjump.nvim'
+  use {
+    'cbochs/portal.nvim',
+    requires = {
+      "cbochs/grapple.nvim",  -- Optional: provides the "grapple" query item
+      "ThePrimeagen/harpoon", -- Optional: provides the "harpoon" query item
+    },
+  }
 
   use 'kevinhwang91/nvim-hlslens'
   use 'petertriho/nvim-scrollbar'
@@ -55,6 +70,7 @@ packer.startup(function(use)
   use 'j-hui/fidget.nvim'
   use 'rcarriga/nvim-notify'
   use 'folke/trouble.nvim'
+  use 'folke/noice.nvim'
 
   use 'tyru/open-browser.vim'
   use 'norcalli/nvim-colorizer.lua'
@@ -62,7 +78,6 @@ packer.startup(function(use)
   -- Plugin library
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'nvim-tree/nvim-web-devicons' -- File icons
-  use 'rcarriga/nvim-notify'
   use 'nvim-lua/popup.nvim'
   use 'kkharji/sqlite.lua'
   use 'MunifTanjim/nui.nvim'
@@ -82,9 +97,17 @@ packer.startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-document-symbol' -- nvim-cmp source
   use 'hrsh7th/cmp-buffer' -- nvim-cmp source
   use 'hrsh7th/cmp-path' -- nvim-cmp source
+  use 'hrsh7th/cmp-nvim-lua' -- nvim-cmp source
+  use 'f3fora/cmp-spell'
+  use 'yutkat/cmp-mocword'
+  use 'uga-rosa/cmp-dictionary'
+  use {
+    'tzachar/cmp-tabnine',
+    run='./install.sh',
+    requires = 'hrsh7th/nvim-cmp',
+  }
   use 'hrsh7th/cmp-cmdline' -- nvim-cmp source
   use 'hrsh7th/vim-vsnip' -- nvim-cmp source
-  use 'hrsh7th/cmp-nvim-lua' -- nvim-cmp source
   use 'ray-x/cmp-treesitter' -- nvim-cmp source
   use 'windwp/nvim-autopairs'
 
@@ -97,39 +120,29 @@ packer.startup(function(use)
     end,
   }
   use 'windwp/nvim-ts-autotag' -- Install after TS installation have completed
-  use 'p00f/nvim-ts-rainbow'
+  use 'mrjones2014/nvim-ts-rainbow'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'm-demare/hlargs.nvim'   -- Highlight args
   use 'andymass/vim-matchup'
 
   -- FZF
   use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' }
-  use {
-    'nvim-telescope/telescope-file-browser.nvim',
-    config = function()
-      require('telescope').load_extension('file_browser')
-    end
-  }
-  use {
-    'nvim-telescope/telescope-frecency.nvim',
-    config = function()
-      require('telescope').load_extension('frecency')
-    end,
-  }
-  use {
-    'nvim-telescope/telescope-packer.nvim',
-    config = function()
-      require('telescope').load_extension('packer')
-    end,
-  }
+  use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'nvim-telescope/telescope-frecency.nvim'
+  use 'nvim-telescope/telescope-packer.nvim'
 
   -- Git
+  -- use  'TimUntersberger/neogit'
+  -- use  'sindrets/diffview.nvim'
+  -- use { 'akinsho/git-conflict.nvim', tag = "*", }
   use 'lewis6991/gitsigns.nvim'
-  use 'kdheepak/lazygit.nvim'
+  use 'kdheepak/lazygit.nvim' -- telescope extension
 
-  -- Markdown
+  -- Language
+  use 'jwalton512/vim-blade' -- blade
+  use 'mtdl9/vim-log-highlighting' -- Log
   use({
-    'iamcco/markdown-preview.nvim',
+    'iamcco/markdown-preview.nvim', -- Markdown
     run = function()
       vim.fn["mkdp#util#install"]()
     end,
@@ -152,6 +165,7 @@ vim.cmd([[
   autocmd FileType * EnableStripWhitespaceOnSave
 ]])
 
+-- vim-sandwich config
 vim.cmd([[
   runtime macros/sandwich/keymap/surround.vim
 ]])

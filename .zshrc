@@ -1,10 +1,3 @@
-## ターミナル起動時、tmuximum実行
-# if [ -z $TMUX ]; then
-#   tmuximum
-# fi
-
-# pokemonsay 'Welcome'
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -95,12 +88,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    autojump
-    web-search
-    macos
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+  git
+  autojump
+  web-search
+  macos
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -178,226 +171,17 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 ## root
 ZSH_HIGHLIGHT_STYLES[root]='bg=red'弧の色を変える
 
-###############
-# FZF setting
-###############
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias f='fzf-tmux --preview "head -n 100 {}"'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-# export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-export FZF_CTRL_T_OPTS="--preview 'tree -C {} | head -200'"
-
-fda() {
-  local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
-}
-
-fbr() {
-  local branches branch
-  branches=$(git --no-pager branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-##################
-# Option setting
-##################
-setopt no_beep
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt auto_cd
-setopt hist_ignore_dups
-setopt share_history
-setopt inc_append_history
+## zsh config file read
+ZSH_DIR="${HOME}/.config/zsh"
 
-###################
-# History setting
-###################
-export HSITFILE=~/.zsh_history
-export HISTSIZE=100000
-export SAVEHIST=100000
-
-#区切り文字設定
-export WORDCHARS="*?_-.[]~&;=!#$%^()[]<>"
-
-# vimのescapeでノーマルモードへ移行する時間用設定
-KEYTIMEOUT=1
-
-###################
-# bindkey setting
-###################
-bindkey "ç" fzf-cd-widget # Opt+c で打たれる文字をバインド
-bindkey \^U backward-kill-line # ctrl+u で行頭からカーソル前まで削除
-
-###################
-# 環境変数
-###################
-## fzf-tmux setting
-export FZF_TMUX=1
-export FZF_TMUX_OPTS="-p 80%,80%" #[width(%),[heigh(%)]
-## nodebrew
-export NODE_BREW=$HOME/.nodebrew/current/bin # nodebrew
-
-export EDITOR='nvim'
-
-###################
-# PATH
-###################
-## nodebrew
-export PATH=~/.composer/vendor/bin:$PATH
-export PATH=$NODE_BREW:/usr/local/bin:$PATH #nodebrew
-
-## Pokemonsay
-export PATH=/Users/skawashi/bin:$PATH
-
-## 外部インストールしたtmuxコマンド
-export PATH=/usr/local/bin/tmuximum:$PATH
-
-## PHP
-# ダウングレード
-export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
-export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
-
-# phpcs
-export PATH=~/bin/PHP_CodeSniffer/bin:$PATH
-#################
-# Alias setting #
-#################
-## .zshrc 読み込み
-alias z='source ~/.zshrc'
-
-## confing file edit
-alias vz='vim ~/.zshrc'
-alias vv='vim ~/.config/nvim/init.vim'
-alias vt="vim ~/.tmux.conf"
-alias vomz='vim ~/.oh-my-zsh'
-alias vd='vim ~/.vim/dein.toml'
-alias vvi='vim ~/.vimrc'
-
-## tmux
-alias t='tmux a -d'
-alias tt='tmux'
-alias ttk='tmux kill-session -t'
-alias ttl='tmux ls'
-alias tm='tmuximum'
-
-## EDITOR
-alias vi='vim'
-alias vim='$EDITOR'
-alias nv='nvim'
-alias view='nvim -R'
-
-## normal command
-alias ls='exa'
-alias l='ls'
-alias la='ls -a'
-alias lla='ls -la'
-alias rm='\rm -i'
-alias mv='\mv -i'
-alias cp='\cp -i'
-alias cat='bat'
-alias c='bat'
-alias cl='clear'
-
-## Git command
-alias ga='git add'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gp='git push'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gs='git status'
-alias gl='git log'
-# alias br='branch'
-# alias co='checkout'
-
-## Docker Command
-alias dcu='docker compose up'
-alias dcud='docker compose up -d'
-alias dcd='docker compose down'
-alias dcs='docker compose stop'
-alias dp='docker ps'
-alias dpa='docker ps -a'
-alias drac='docker rm $(docker ps -aq)'
-alias drai='docker rmi $(docker images -q)'
-
-## Pokemonsay
-alias poke="pokemonsay 'Welcome'"
-
-## tcomment
-#if !exists('g:tcomment_types')
-#	let g:tcomment_types = {}
-#endif
-#let g:tcomment_types['phpunit'] = '// %s'
-#let g:tcomment_types['twig'] = '{# %s #}'
-#let g:tcomment_types['.vimrc'] = '# %s'
-
-# phpenv
-# eval "$(anyenv init -)"
-
-# phpenv() {
-#   unfunction "$0"
-#   source <(phpenv init -)
-#   $0 "$@"
-# }
-
-# export PATH="/opt/homebrew/opt/bison/bin:$PATH"
-# export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
-# export PATH="/opt/homebrew/opt/bzip2/bin:$PATH"
-# export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-# export PATH="/opt/homebrew/opt/libiconv/bin:$PATH"
-# export PATH="/opt/homebrew/opt/krb5/bin:$PATH"
-# export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
-# export PATH="/opt/homebrew/opt/icu4c/bin:$PATH"
-# export PATH="/opt/homebrew/opt/tidy-html5/lib:$PATH"
-# export PATH="/opt/homebrew/opt/gmp/lib:$PATH"
-
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/libedit/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/libjpeg/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/libpng/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/libzip/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/oniguruma/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/tidy-html5/lib/pkgconfig:$PKG_CONFIG_PATH"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/gmp/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-# export PHP_RPATHS="/opt/homebrew/opt/zlib/lib /opt/homebrew/opt/bzip2/lib /opt/homebrew/opt/curl/lib /opt/homebrew/opt/libiconv/lib /opt/homebrew/opt/libedit/lib"
-
-# export PHP_BUILD_CONFIGURE_OPTS="
-#     --disable-fpm
-#     --with-bz2=$(brew --prefix bzip2)
-#     --with-curl=$(brew --prefix curl)
-#     --with-gettext=$(brew --prefix gettext)
-#     --with-gmp=$(brew --prefix gmp)
-#     --with-iconv=$(brew --prefix libiconv)
-#     --with-icu_dir=$(brew --prefix icu4c)
-#     --with-jpeg-dir=$(brew --prefix jpeg)
-#     --with-libedit=$(brew --prefix libedit)
-#     --with-libxml-dir=$(brew --prefix libxml2)
-#     --with-libzip=$(brew --prefix libzip)
-#     --with-png-dir=$(brew --prefix libpng)
-#     --with-readline=$(brew --prefix readline)
-#     --with-tidy=$(brew --prefix tidy-html5)
-#     --with-xsl=$(brew --prefix libxslt)
-#     --with-zlib-dir=$(brew --prefix zlib)
-# "
-
-    # --enable-intl
-    # --with-pear
-
-    # --with-external-pcre=$(brew --prefix pcre2)
-    # --with-zip
-    # --with-mcrypt=$(brew --prefix libmcrypt)
-    # --disable-phpdgb
-    # --enable-debaug
-    # --with-kerberos
-
-## available command
-# neofetch
-
+# .zshがディレクトリで、読み取り、実行、が可能なとき
+if [ -d $ZSH_DIR ] && [ -r $ZSH_DIR ] && [ -x $ZSH_DIR ]; then
+    # zshディレクトリより下にある、.zshファイルの分、繰り返す
+    for file in ${ZSH_DIR}/**/*.zsh; do
+        # 読み取り可能ならば実行する
+        [ -r $file ] && source $file
+    done
+fi

@@ -1,9 +1,10 @@
+vim.cmd([[syntax enable]])
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.winblend = 0
 vim.opt.wildoptions = 'pum'
 vim.opt.pumblend = 5
-vim.opt.background = dark
+vim.opt.background = 'dark'
 
 -- local exec = vim.api.nvim_exec
 -- exec('highlight SignColumn ctermbg = NONE guibg = NONE', false)
